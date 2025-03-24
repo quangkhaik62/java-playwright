@@ -10,13 +10,13 @@ Playwright with Java
 
 ## 2.1 JAVA 
     Download: https://download.oracle.com/java/24/latest/jdk-24_windows-x64_bin.zip
-![img_2.png](img_2.png)
-![img_3.png](img_3.png)
-
+- Add path for java
+![img.png](image/img.png)
+![img_1.png](image/img_1.png)
 ## 2.2 MAVEN
     Download: https://dlcdn.apache.org/maven/maven-3/3.9.9/binaries/apache-maven-3.9.9-bin.zip
-![img.png](img.png)
-![img_1.png](img_1.png)
-
+- Add path for Maven
+![img_2.png](image/img_2.png)
+![img_1.png](image/img_1.png)
 ## 2.3 IDE
     Download: https://www.jetbrains.com/idea/download/?section=windows
