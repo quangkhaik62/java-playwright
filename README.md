@@ -20,3 +20,19 @@ Playwright with Java
 ![img_1.png](image/img_1.png)
 ## 2.3 IDE
     Download: https://www.jetbrains.com/idea/download/?section=windows
+## 2.4 Add dependencies into pom.xml
+
+    <dependencies>
+        <dependency>
+            <groupId>com.microsoft.playwright</groupId>
+            <artifactId>playwright</artifactId>
+            <version>1.47.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.11.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies> 
