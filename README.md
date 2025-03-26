@@ -9,7 +9,7 @@ Playwright with Java
 # 2. Setup
 
 ## 2.1 JAVA 
-    Download: https://download.oracle.com/java/24/latest/jdk-24_windows-x64_bin.zip
+    Download: https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html
 - Add path for java
 ![img.png](image/img.png)
 ![img_1.png](image/img_1.png)
