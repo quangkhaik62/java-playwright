@@ -1,6 +1,7 @@
 package com.serenitydojo.playwright;
 
 import com.microsoft.playwright.Browser;
+import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
 import org.junit.jupiter.api.Assertions;
@@ -10,7 +11,7 @@ public class SimpleTestCase {
     @Test
     void checkTitle() {
         Playwright playwright = Playwright.create();
-        Browser browser = playwright.chromium().launch();
+        Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
         Page page = browser.newPage();
 
         page.navigate("https://github.com/quangkhaik62/java-playwright");
