@@ -36,3 +36,35 @@ Playwright with Java
             <scope>test</scope>
         </dependency>
     </dependencies> 
+
+# 3. My first test case
+    @UsePlaywright
+    public class SimpleTestCase {
+    @Test
+    void checkTitle(Page page) {
+
+        page.navigate("https://github.com/quangkhaik62/java-playwright");
+        String title = page.title();
+        Assertions.assertTrue(title.contains("java-playwright"));
+        System.out.println(title);
+    }
+    @Test
+    void interactwithelement(Page page) {
+        page.navigate("https://practicesoftwaretesting.com/");
+        page.locator("#search-query").fill("Pliers");
+        page.locator("button:has-text('Search')").click();
+        int numberofproduct = page.locator(".card").count();
+        Assertions.assertTrue(numberofproduct > 0);
+        System.out.println(numberofproduct);
+    }
+    }
+
+- Create a Playwright: Playwight playwright = Playwright.create();
+- Run a Browser: Browser browser = playwright.<browser>().launch();
+- Open a Page: Page page = browser.newPage();
+- Navigate to a URL: page.navigate();
+- Check conditions: Assertions.<>();
+- Annotaion: @UsePlaywright @Test @BeforeEach @AfterEach
+
+Note: Default playwright launch browser with headless type, we can change it to Headed by setHeadless() in launch().
+
