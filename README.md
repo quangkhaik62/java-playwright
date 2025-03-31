@@ -68,3 +68,21 @@ Playwright with Java
 
 Note: Default playwright launch browser with headless type, we can change it to Headed by setHeadless() in launch().
 
+# 4. Playwright Architecture: Browsers, Browser Contexts and Pages
+
+## 4.1 Browser options
+![img.png](image/img_3.png)
+![img_4.png](image/img_4.png)
+![img_5.png](image/img_5.png)
+
+## 4.2 Browser context
+    Playwright
+        └── Browser (Chromium, Firefox, Webkit)
+            └── BrowserContext (Session 1)
+                │       └── Page (Tab 1)
+                │       └── Page (Tab 2)
+                └── BrowserContext (Session 2)
+                        └── Page (Tab 1)
+
+- browserContext = browser.newContext(): Create a new BrowserContext.
+- browserContext.newPage(): Create a page inn browser context.
