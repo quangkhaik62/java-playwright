@@ -86,3 +86,6 @@ Note: Default playwright launch browser with headless type, we can change it to 
 
 - browserContext = browser.newContext(): Create a new BrowserContext.
 - browserContext.newPage(): Create a page inn browser context.
+
+# 5. Locators
+![img_6.png](image/img_6.png)
