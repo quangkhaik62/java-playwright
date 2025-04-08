@@ -55,7 +55,45 @@ public class LocatorsTesting {
         page.navigate("https://practicetestautomation.com/practice-test-login/");
         page.getByLabel("Username").fill("student");
         page.getByLabel("Password").fill("Password123");
+        //role button
         page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Submit")).click();
         PlaywrightAssertions.assertThat(page.getByText("Congratulations student. You successfully logged in!")).isVisible();
+    }
+
+    @DisplayName("Role")
+    @Test
+    void elementbyRoles(){
+        page.navigate("https://practicesoftwaretesting.com/");
+        page.getByLabel("Search").fill("Long");
+        page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Search")).click();
+        PlaywrightAssertions.assertThat(page.getByText("Long Nose Pliers")).isVisible();
+        page.waitForTimeout(3000);
+    }
+
+    @DisplayName("Test ID")
+    @Test
+    void elementByTestID(){
+        page.navigate("https://practicesoftwaretesting.com/");
+        page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Categories")).click();
+        playwright.selectors().setTestIdAttribute("data-test");
+        page.getByTestId("nav-special-tools").click();
+        PlaywrightAssertions.assertThat(page.getByText("There are no products found")).isVisible();
+        page.waitForTimeout(3000);
+    }
+
+    @DisplayName("CSS")
+    @Test
+    void elementByCSS(){
+        page.navigate("https://practicesoftwaretesting.com/");
+        page.locator("#search-query").fill("Hammer");
+        page.waitForTimeout(1000);
+        page.locator("button[type='submit']").click();
+        page.waitForTimeout(2000);
+        page.locator("img[alt='Thor Hammer']").click();
+        page.waitForTimeout(2000);
+        page.locator("#btn-increase-quantity").click();
+        page.waitForTimeout(2000);
+        PlaywrightAssertions.assertThat(page.locator("#quantity-input")).hasValue("2");
+        page.waitForTimeout(3000);
     }
 }
