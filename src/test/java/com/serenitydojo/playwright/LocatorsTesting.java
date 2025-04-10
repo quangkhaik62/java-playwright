@@ -7,6 +7,7 @@ import org.junit.jupiter.api.*;
 
 import java.beans.Transient;
 import java.util.Arrays;
+import java.util.List;
 
 public class LocatorsTesting {
 
@@ -19,7 +20,7 @@ public class LocatorsTesting {
     public static void setupbrowser(){
         playwright = Playwright.create();
         browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false).setArgs(Arrays.asList("--start-fullscreen")));
-        browserContext = browser.newContext(new Browser.NewContextOptions().setViewportSize(null));
+        browserContext = browser.newContext(new Browser.NewContextOptions().setViewportSize(1920,1080));
     }
 
     @BeforeEach
@@ -95,5 +96,19 @@ public class LocatorsTesting {
         page.waitForTimeout(2000);
         PlaywrightAssertions.assertThat(page.locator("#quantity-input")).hasValue("2");
         page.waitForTimeout(3000);
+    }
+    @Test
+    void contactbutton(){
+        page.navigate("https://practicesoftwaretesting.com/");
+        playwright.selectors().setTestIdAttribute("data-test");
+        page.getByTestId("nav-contact").click();
+        //page.locator(".nav-link").click();
+        page.getByLabel("First name").fill("Kai");
+        page.getByLabel("Last name").fill("Nguyen");
+        page.getByLabel("Email address").fill("Kainguyen@aam1.com");
+        Locator webmaster = page.locator("select[id='subject']");
+        webmaster.selectOption("webmaster");
+        page.waitForTimeout(5000);
+
     }
 }

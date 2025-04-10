@@ -19,7 +19,7 @@ public class SimpleTestCase {
     @BeforeAll
     public static void setupBrowser() {
         playwright = Playwright.create();
-        browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false).setArgs(Arrays.asList("")));
         browserContext = browser.newContext();
     }
 
@@ -63,5 +63,12 @@ public class SimpleTestCase {
         int numberofproduct = page.locator(".card").count();
         Assertions.assertTrue(numberofproduct > 0);
         System.out.println("Number of card is "+numberofproduct);
+    }
+
+    @Test
+    void locatorsection() {
+        page.navigate("https://practicesoftwaretesting.com");
+        page.getByText("Long Nose Pliers").click();
+
     }
 }
