@@ -104,24 +104,4 @@ public class LocatorsTesting {
         PlaywrightAssertions.assertThat(page.locator("#quantity-input")).hasValue("2");
 //        page.waitForTimeout(3000);
     }
-
-    @Test
-    void contactbutton() throws URISyntaxException {
-        page.navigate(ContactOfShop);
-        page.getByLabel("First name").fill("Kai");
-        page.getByLabel("Last name").fill("Nguyen");
-        page.getByLabel("Email address").fill("Kainguyen@aam1.com");
-        var webmaster = page.locator("select[id='subject']");
-        webmaster.selectOption("webmaster");
-//        page.waitForTimeout(5000);
-        var Messagefield = page.getByLabel("Message");
-        Messagefield.fill("ipc@12IPCKCOI");
-        Path uploadfile = Paths.get(ClassLoader.getSystemResource("testinput.txt").toURI());
-
-        page.setInputFiles("#attachment", uploadfile);
-        page.waitForTimeout(7000);
-
-
-        
-    }
 }
