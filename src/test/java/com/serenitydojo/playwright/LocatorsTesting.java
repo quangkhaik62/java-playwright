@@ -116,10 +116,12 @@ public class LocatorsTesting {
 //        page.waitForTimeout(5000);
         var Messagefield = page.getByLabel("Message");
         Messagefield.fill("ipc@12IPCKCOI");
+
         Path uploadfile = Paths.get(ClassLoader.getSystemResource("testinput.txt").toURI());
 
         page.setInputFiles("#attachment", uploadfile);
         page.waitForTimeout(7000);
+
 
         
     }
