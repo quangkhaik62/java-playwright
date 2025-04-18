@@ -1,19 +1,17 @@
 package com.serenitydojo.playwright;
 
 import com.microsoft.playwright.*;
-import com.microsoft.playwright.assertions.PlaywrightAssertions;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
 
-import java.net.URISyntaxException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.List;
 
 public class module10Assertions {
     public static Playwright playwright;
     public static Browser browser;
     public static BrowserContext browserContext;
     public static Page page;
-    String Toolshop = "https://practicesoftwaretesting.com/contact";
+    String Toolshop = "https://practicesoftwaretesting.com";
 
     @BeforeAll
     public static void SetupBrowser(){
@@ -23,7 +21,11 @@ public class module10Assertions {
     }
     @BeforeEach
     public void SetupPage(){
+
         page = browserContext.newPage();
+        page.navigate(Toolshop);
+        playwright.selectors().setTestIdAttribute("data-test");
+        page.waitForCondition(() -> page.getByTestId("product-name").count() > 0);
     }
     @AfterAll
     public static void Teardown(){
@@ -31,28 +33,34 @@ public class module10Assertions {
         playwright.close();
     }
 
-    @DisplayName("Assertions-test")
+    @DisplayName("Product Name")
     @Test
-    void Module10() throws URISyntaxException {
-        page.navigate(Toolshop);
-        page.getByLabel("First name").fill("Kai");
-        page.getByLabel("Last name").fill("Nguyen");
-        page.getByLabel("Email address").fill("Kainguyen@aam1.com");
-//        var webmaster = page.locator("select[id='subject']");
-//        webmaster.selectOption("webmaster");
-        var Messagefield = page.getByLabel("Message");
-        Messagefield.fill("ipc@12IPCKCOI");
-        Path uploadfile = Paths.get(ClassLoader.getSystemResource("testinput.txt").toURI());
-        page.setInputFiles("#attachment", uploadfile);
-        page.waitForTimeout(7000);
-        page.locator(".btnSubmit").click();
-//        playwright.selectors().setTestIdAttribute("data-test");
-//        PlaywrightAssertions.assertThat(page.getByTestId("first-name-error")).containsText("First name is required");
-        System.out.println("check assertions");
-        PlaywrightAssertions.assertThat(page.locator("#subject_alert")).containsText("Subject is required");
+    void ProductPrice(){
+        List<Double> prices = page.getByTestId("product-price")
+                .allInnerTexts()
+                .stream()
+                .map(price -> Double.parseDouble(price.replace("$","")))
+                .toList();
+        prices.forEach(price -> System.out.println("Parsed price: $" + price));
+
+        Assertions.assertThat(prices)
+                .isNotEmpty()
+                .allMatch(price -> price > 0);
+
+        List<String> ProductName = page.getByTestId("product-name")
+                .allInnerTexts()
+                .stream()
+                .toList();
+        ProductName.forEach(Pname -> System.out.println("Product name: " + ProductName));
+
+        Assertions.assertThat(ProductName)
+                .isNotEmpty()
+
+
+
+
 
     }
-
 
 
 }
