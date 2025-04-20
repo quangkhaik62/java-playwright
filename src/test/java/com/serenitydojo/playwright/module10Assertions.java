@@ -14,7 +14,8 @@ public class module10Assertions {
     @BeforeAll
     public static void SetupBrowser(){
         playwright = Playwright.create();
-        browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false).setChannel("chrome"));
+//        browser =playwright.chromium().launch(new BrowserType.LaunchOptions());
         browserContext = browser.newContext(new Browser.NewContextOptions().setViewportSize(1920,1080));
     }
     @BeforeEach
@@ -35,8 +36,6 @@ public class module10Assertions {
 //        playwright.selectors().setTestIdAttribute("data-test");
 //        PlaywrightAssertions.assertThat(page.getByTestId("first-name-error")).containsText("First name is required");
         PlaywrightAssertions.assertThat(page.locator("#subject_alert")).containsText("Subject is required");
-
-
     }
 
 
