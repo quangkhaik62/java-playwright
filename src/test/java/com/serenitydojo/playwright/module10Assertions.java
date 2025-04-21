@@ -1,9 +1,12 @@
 package com.serenitydojo.playwright;
 
 import com.microsoft.playwright.*;
+import com.microsoft.playwright.options.LoadState;
+import com.sun.jdi.connect.Connector;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class module10Assertions {
@@ -45,7 +48,10 @@ public class module10Assertions {
 
         Assertions.assertThat(prices)
                 .isNotEmpty()
-                .allMatch(price -> price > 0);
+                .allMatch(price -> price > 0)
+                .allSatisfy(price -> Assertions.assertThat(price)
+                        .isGreaterThan(0.0)
+                        .isLessThan(1000.0));
 
         List<String> ProductName = page.getByTestId("product-name")
                 .allInnerTexts()
@@ -54,12 +60,64 @@ public class module10Assertions {
         ProductName.forEach(Pname -> System.out.println("Product name: " + ProductName));
 
         Assertions.assertThat(ProductName)
-                .isNotEmpty()
+                .isNotEmpty();
+    }
 
 
+    @Test
+    void SortProductAtoZ(){
+        page.getByLabel("Sort").selectOption("Name (A - Z)");
+        page.waitForLoadState(LoadState.NETWORKIDLE);
 
+        List<String> productNamesAtoZ = page.getByTestId("product-name").allTextContents();
+        System.out.println("Product Names: "+ productNamesAtoZ);
 
+        Assertions.assertThat(productNamesAtoZ).isSortedAccordingTo(String.CASE_INSENSITIVE_ORDER);
+        System.out.println("Sort A to Z");
+    }
 
+    @Test
+    void SortProductZtoA(){
+        page.getByLabel("Sort").selectOption("Name (Z - A)");
+        page.waitForLoadState(LoadState.NETWORKIDLE);
+
+        List<String> productNamesZtoA = page.getByTestId("product-name").allTextContents();
+        System.out.println("Product Names: "+ productNamesZtoA);
+
+        Assertions.assertThat(productNamesZtoA).isSortedAccordingTo(Comparator.reverseOrder());
+        System.out.println("Sort Z to A");
+    }
+
+    @Test
+    void SortPriceHightoLow(){
+        page.getByLabel("Sort").selectOption("Price (High - Low)");
+        page.waitForLoadState(LoadState.NETWORKIDLE);
+
+        List<Double> PriceHightoLow = page.getByTestId("product-price")
+                .allInnerTexts()
+                .stream().map(price -> Double.parseDouble(price.replace("$", "")))
+                .toList();
+        System.out.println("Product Prices: "+ PriceHightoLow);
+
+        Assertions.assertThat(PriceHightoLow).isSortedAccordingTo(Comparator.reverseOrder());
+        System.out.println("High to Low");
+    }
+
+    @Test
+    void SortPriceLowtoHigh(){
+        page.getByLabel("Sort").selectOption("Price (Low - High)");
+        page.waitForLoadState(LoadState.NETWORKIDLE);
+
+        List<Double> PriceLowtoHigh = page.getByTestId("product-price")
+                .allInnerTexts()
+                .stream()
+                .map(price -> Double.parseDouble(price.replace("$", "")))
+                .toList();
+        System.out.println("Prices Low to High: " + PriceLowtoHigh);
+
+        Assertions.assertThat(PriceLowtoHigh)
+                .isSorted();
+        System.out.println("Low to High");
     }
 
 
