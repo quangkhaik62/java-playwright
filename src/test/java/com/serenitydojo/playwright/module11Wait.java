@@ -1,6 +1,7 @@
 package com.serenitydojo.playwright;
 
 import com.microsoft.playwright.*;
+import com.microsoft.playwright.options.LoadState;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
 
@@ -30,8 +31,7 @@ public class module11Wait {
         page = browserContext.newPage();
         page.navigate("https://practicesoftwaretesting.com/");
         playwright.selectors().setTestIdAttribute("data-test");
-//        page.waitForLoadState(LoadState.NETWORKIDLE);
-//        page.waitForSelector("date-test=product-name");
+
     }
 
     @AfterAll
@@ -44,9 +44,11 @@ public class module11Wait {
     void Waitfirst(){
 
         page.getByLabel("Sort").selectOption("Name (A - Z)");
-
+//        page.waitForLoadState(LoadState.NETWORKIDLE);
+        page.waitForSelector(".card-img-top");
         List<String> products = page.getByTestId("product-name").allInnerTexts().stream().toList();
 
-        Assertions.assertThat(products).contains("")
+
+        Assertions.assertThat(products).contains("Bolt Cutters");
     }
 }
