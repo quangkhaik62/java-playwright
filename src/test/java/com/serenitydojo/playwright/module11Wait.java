@@ -1,10 +1,10 @@
 package com.serenitydojo.playwright;
 
 import com.microsoft.playwright.*;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.*;
+
+import java.util.List;
 
 public class module11Wait {
     public static Playwright playwright;
@@ -29,6 +29,9 @@ public class module11Wait {
     void SetupPage(){
         page = browserContext.newPage();
         page.navigate("https://practicesoftwaretesting.com/");
+        playwright.selectors().setTestIdAttribute("data-test");
+//        page.waitForLoadState(LoadState.NETWORKIDLE);
+//        page.waitForSelector("date-test=product-name");
     }
 
     @AfterAll
@@ -39,6 +42,11 @@ public class module11Wait {
 
     @Test
     void Waitfirst(){
+
         page.getByLabel("Sort").selectOption("Name (A - Z)");
+
+        List<String> products = page.getByTestId("product-name").allInnerTexts().stream().toList();
+
+        Assertions.assertThat(products).contains("")
     }
 }
