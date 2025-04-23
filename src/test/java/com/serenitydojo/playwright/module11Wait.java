@@ -1,6 +1,7 @@
 package com.serenitydojo.playwright;
 
 import com.microsoft.playwright.*;
+import com.microsoft.playwright.assertions.PlaywrightAssertions;
 import com.microsoft.playwright.options.LoadState;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
@@ -47,8 +48,26 @@ public class module11Wait {
 //        page.waitForLoadState(LoadState.NETWORKIDLE);
         page.waitForSelector(".card-img-top");
         List<String> products = page.getByTestId("product-name").allInnerTexts().stream().toList();
-
-
         Assertions.assertThat(products).contains("Bolt Cutters");
+    }
+
+    @Test
+    void Waitimplicit(){
+        var filtergrinder = page.getByLabel("Grinder");
+        filtergrinder.click();
+        PlaywrightAssertions.assertThat(filtergrinder).isChecked();
+        System.out.println("Grinder");
+    }
+    @Test
+    void WaitwithSelector(){
+        var filterHammer = page.getByLabel("Hammer");
+        filterHammer.click();
+//        PlaywrightAssertions.assertThat(filterHammer).isChecked();
+        System.out.println("Hammer");
+
+        List<String> ProductNames = page.getByTestId("product-name").allInnerTexts()
+                        .stream().toList();
+        page.waitForSelector(".card-img-top", new Page.WaitForSelectorOptions().setTimeout(3000));
+        Assertions.assertThat(ProductNames).contains("Claw Hammer");
     }
 }
