@@ -16,7 +16,7 @@ public class module11Wait {
     Page page;
 
     @BeforeAll
-    public static void SetupBrowser(){
+    public static void SetupBrowser() {
         playwright = Playwright.create();
         browser = playwright.chromium().launch(
                 new BrowserType.LaunchOptions()
@@ -24,12 +24,12 @@ public class module11Wait {
         );
         browserContext = browser.newContext(
                 new Browser.NewContextOptions()
-                        .setViewportSize(1920,1080)
+                        .setViewportSize(1920, 1080)
         );
     }
 
     @BeforeEach
-    void SetupPage(){
+    void SetupPage() {
         page = browserContext.newPage();
         page.navigate("https://practicesoftwaretesting.com/");
         playwright.selectors().setTestIdAttribute("data-test");
@@ -37,13 +37,13 @@ public class module11Wait {
     }
 
     @AfterAll
-    public static void Teardown(){
+    public static void Teardown() {
         browser.close();
         playwright.close();
     }
 
     @Test
-    void Waitfirst(){
+    void Waitfirst() {
 
         page.getByLabel("Sort").selectOption("Name (A - Z)");
 //        page.waitForLoadState(LoadState.NETWORKIDLE);
@@ -53,28 +53,29 @@ public class module11Wait {
     }
 
     @Test
-    void Waitimplicit(){
+    void Waitimplicit() {
         var filtergrinder = page.getByLabel("Grinder");
         filtergrinder.click();
         PlaywrightAssertions.assertThat(filtergrinder).isChecked();
         System.out.println("Grinder");
     }
+
     @Test
-    void WaitwithSelector(){
+    void WaitwithSelector() {
         var filterHammer = page.getByLabel("Hammer");
         filterHammer.click();
 //        PlaywrightAssertions.assertThat(filterHammer).isChecked();
         System.out.println("Hammer");
 
         List<String> ProductNames = page.getByTestId("product-name").allInnerTexts()
-                        .stream().toList();
+                .stream().toList();
         page.waitForSelector(".card-img-top", new Page.WaitForSelectorOptions().setTimeout(3000));
         Assertions.assertThat(ProductNames).contains("Claw Hammer");
     }
 
     @Test
     @DisplayName("appear & disappear")
-    void waitAppear(){
+    void waitAppear() {
         page.locator(".card-img-top[alt='Claw Hammer']").click();
         page.waitForLoadState(LoadState.NETWORKIDLE);
         page.locator("button[id='btn-add-to-cart']").click();
@@ -82,7 +83,17 @@ public class module11Wait {
         PlaywrightAssertions.assertThat(page.getByRole(AriaRole.ALERT)).isVisible();
         PlaywrightAssertions.assertThat(page.getByRole(AriaRole.ALERT)).hasText("Product added to shopping cart.");
 
-        page.waitForCondition( () -> page.getByRole(AriaRole.ALERT).isHidden());
+        page.waitForCondition(() -> page.getByRole(AriaRole.ALERT).isHidden());
 
+    }
+
+    @Test
+    @DisplayName("appear & disappear")
+    void waitTextcontentCart() {
+        page.locator(".card-img-top[alt='Claw Hammer']").click();
+        page.waitForLoadState(LoadState.NETWORKIDLE);
+        page.locator("button[id='btn-add-to-cart']").click();
+
+        page.waitForCondition(() -> page.getByTestId("cart-quantity").textContent().equals("1"));
     }
 }
