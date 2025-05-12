@@ -96,4 +96,27 @@ public class module11Wait {
 
         page.waitForCondition(() -> page.getByTestId("cart-quantity").textContent().equals("1"));
     }
+
+    @Test
+    @DisplayName("API")
+    void waitAPIrep(){
+
+        page.waitForResponse("**/products?sort=name**", () -> page.getByLabel("Sort").selectOption("Name (A - Z)"));
+        List<String> Productname = page.getByTestId("product-name").allInnerTexts();
+        System.out.println("Name: " + Productname);
+
+
+        page.waitForResponse("**/products?sort=price**", () -> page.getByLabel("Sort").selectOption("Price (High - Low)"));
+
+        List<Double> PriceProduct = page.getByTestId("product-price")
+                .allInnerTexts()
+                .stream()
+                .map( price -> Double.parseDouble(price.replace("$", "")))
+                .toList();
+        System.out.println("Price: " + PriceProduct);
+        Assertions.assertThat(PriceProduct).isNotEmpty();
+
+
+
+    }
 }
