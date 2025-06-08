@@ -1,4 +1,4 @@
-package com.serenitydojo.playwright;
+package com.serenitydojo.playwright.PageOjectToolshop;
 
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.assertions.PlaywrightAssertions;
@@ -9,38 +9,7 @@ import org.junit.jupiter.api.*;
 
 import java.util.List;
 
-public class module11Wait {
-    public static Playwright playwright;
-    public static Browser browser;
-    public static BrowserContext browserContext;
-    Page page;
-
-    @BeforeAll
-    public static void SetupBrowser() {
-        playwright = Playwright.create();
-        browser = playwright.chromium().launch(
-                new BrowserType.LaunchOptions()
-                        .setHeadless(false)
-        );
-        browserContext = browser.newContext(
-                new Browser.NewContextOptions()
-                        .setViewportSize(1920, 1080)
-        );
-    }
-
-    @BeforeEach
-    void SetupPage() {
-        page = browserContext.newPage();
-        page.navigate("https://practicesoftwaretesting.com/");
-        playwright.selectors().setTestIdAttribute("data-test");
-
-    }
-
-    @AfterAll
-    public static void Teardown() {
-        browser.close();
-        playwright.close();
-    }
+public class module11Wait extends PlaywrightTestcase{
 
     @Test
     void Waitfirst() {
@@ -74,7 +43,7 @@ public class module11Wait {
     }
 
     @Test
-    @DisplayName("appear & disappear")
+    @DisplayName("appear & disappear 1")
     void waitAppear() {
         page.locator(".card-img-top[alt='Claw Hammer']").click();
         page.waitForLoadState(LoadState.NETWORKIDLE);
@@ -88,7 +57,7 @@ public class module11Wait {
     }
 
     @Test
-    @DisplayName("appear & disappear")
+    @DisplayName("appear & disappear 2")
     void waitTextcontentCart() {
         page.locator(".card-img-top[alt='Claw Hammer']").click();
         page.waitForLoadState(LoadState.NETWORKIDLE);

@@ -1,4 +1,4 @@
-package com.serenitydojo.playwright;
+package com.serenitydojo.playwright.PageOjectToolshop;
 
 import com.microsoft.playwright.*;
 import org.junit.jupiter.api.AfterAll;

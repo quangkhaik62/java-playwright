@@ -1,8 +1,7 @@
-package com.serenitydojo.playwright;
+package com.serenitydojo.playwright.PageOjectToolshop;
 
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.options.LoadState;
-import com.sun.jdi.connect.Connector;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
 

@@ -1,17 +1,11 @@
-package com.serenitydojo.playwright;
+package com.serenitydojo.playwright.PageOjectToolshop;
 
-import com.google.errorprone.annotations.Var;
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.assertions.PlaywrightAssertions;
 import com.microsoft.playwright.options.AriaRole;
 import org.junit.jupiter.api.*;
 
-import java.beans.Transient;
-import java.net.URISyntaxException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.List;
 
 public class LocatorsTesting {
 
